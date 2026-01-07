@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdIA – Creative Execution Powered by Intelligence</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4DA3FF',
+            backgroundDark: '#0B141A',
+            backgroundCard: '#121E27',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-backgroundDark text-slate-200 font-sans antialiased">
+
+  <div id="siteHeader"></div>
+
+  <section class="relative flex min-h-screen w-full items-center justify-center overflow-hidden">
+    <video autoplay muted loop playsinline class="absolute inset-0 h-full w-full object-cover opacity-60">
+      <source src="hero-reel.mp4" type="video/mp4" />
+    </video>
+
+    <div class="absolute inset-0 bg-backgroundDark/60 backdrop-blur-sm"></div>
+
+    <div class="relative z-10 mx-auto max-w-5xl px-6 text-center">
+      <a href="who-we-are.html"
+         class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-200 backdrop-blur-md
+                hover:bg-white/10 hover:text-white hover:underline underline-offset-4 transition cursor-pointer">
+        Partnership · Orugga × Frame
+      </a>
+
+      <h1 class="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+        Creative Execution<br class="hidden sm:block">
+        <span class="text-primary">Powered by Intelligence</span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+        AI execution combined with real production expertise.
+      </p>
+
+      <p class="mx-auto mt-4 max-w-3xl text-sm text-slate-400">
+        AdIA turns briefs into ready-to-run creative assets — video, motion, adaptations and variations — powered by AI and refined by humans.
+      </p>
+
+      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href="request-demo.html"
+           class="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3 text-base font-bold text-white transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(19,164,236,0.4)] hover:shadow-[0_0_30px_rgba(19,164,236,0.6)]">
+          Start your campaign →
+        </a>
+
+        <a href="how-it-works.html"
+           class="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5 px-8 py-3 text-base font-semibold text-white/90 hover:bg-white/10 transition">
+          How it works →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div id="siteFooter"></div>
+  <script src="assets/includes.js"></script>
+</body>
+</html>
