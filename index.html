@@ -205,49 +205,66 @@
 </div>
 </div>
 </section>
-<!-- ================= TRUSTED BY STRIP ================= -->
-<section class="max-w-7xl mx-auto px-6 pb-24">
-  <div class="bg-backgroundCard/40 border border-white/5 rounded-2xl px-6 py-5">
-    
-    <div class="flex items-center justify-between gap-6 mb-4">
-      <p class="text-xs uppercase tracking-wider text-slate-500">
-        Trusted by leading brands
-      </p>
-      <p class="text-xs text-slate-500 hidden md:block">
-        Interactive
-      </p>
-    </div>
+<style>
+  /* === TRUSTED BY marquee === */
+  .adia-trusted-strip{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
 
-    <div class="adia-trusted-strip">
-      <div class="adia-trusted-track">
+  .adia-trusted-track{
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    width: max-content;
+    white-space: nowrap;
+    animation: adia-marquee 28s linear infinite;
+    will-change: transform;
+  }
 
-        <span class="adia-brand"><span class="wordmark">Disney</span></span>
-        <span class="adia-brand"><span class="wordmark">Netflix</span></span>
-        <span class="adia-brand"><span class="wordmark">HBO</span></span>
-        <span class="adia-brand"><span class="wordmark">Cinemark</span></span>
-        <span class="adia-brand"><span class="wordmark">Thermomix</span></span>
+  .adia-trusted-strip:hover .adia-trusted-track{
+    animation-play-state: paused;
+  }
 
-        <span class="adia-brand"><span class="wordmark">Samsung</span></span>
-        <span class="adia-brand"><span class="wordmark">Microsoft</span></span>
-        <span class="adia-brand"><span class="wordmark">BBVA</span></span>
-        <span class="adia-brand"><span class="wordmark">Santander</span></span>
+  .adia-brand{
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    transition: background .2s ease, border-color .2s ease, opacity .2s ease;
+    opacity: .82;
+    flex: 0 0 auto;
+  }
 
-        <!-- duplicated for infinite loop -->
-        <span class="adia-brand"><span class="wordmark">Disney</span></span>
-        <span class="adia-brand"><span class="wordmark">Netflix</span></span>
-        <span class="adia-brand"><span class="wordmark">HBO</span></span>
-        <span class="adia-brand"><span class="wordmark">Cinemark</span></span>
-        <span class="adia-brand"><span class="wordmark">Thermomix</span></span>
-        <span class="adia-brand"><span class="wordmark">Samsung</span></span>
-        <span class="adia-brand"><span class="wordmark">Microsoft</span></span>
-        <span class="adia-brand"><span class="wordmark">BBVA</span></span>
-        <span class="adia-brand"><span class="wordmark">Santander</span></span>
+  .adia-brand:hover{
+    opacity: 1;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.14);
+  }
 
-      </div>
-    </div>
+  .wordmark{
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: rgba(226,232,240,.92); /* slate-200-ish */
+  }
 
-  </div>
-</section>    
+  @keyframes adia-marquee{
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .adia-trusted-track{ animation: none; }
+  }
+</style>
+
 <!-- ================= WHO IT'S FOR ================= -->
 <section class="max-w-7xl mx-auto py-24 px-6">
 <div class="text-center mb-16">
