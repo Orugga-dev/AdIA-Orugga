@@ -61,6 +61,40 @@
     if (y) y.textContent = String(new Date().getFullYear());
   }
 
+  function initLangSwitcher() {
+    const host = document.getElementById("langSwitcher");
+    if (!host) return;
+
+    function repoBase() {
+      // GitHub Pages project site: https://<user>.github.io/<repo>/...
+      const hn = (location.hostname || "").toLowerCase();
+      if (!hn.endsWith("github.io")) return "";
+      const parts = location.pathname.split("/").filter(Boolean);
+      // ["AdIA-Orugga","en","index.html"]
+      if (parts.length && parts[0] !== "en" && parts[0] !== "es") return "/" + parts[0];
+      return "";
+    }
+
+    function relativePage() {
+      let p = location.pathname;
+      const base = repoBase();
+      if (base && p.startsWith(base)) p = p.slice(base.length);
+      // remove /en or /es
+      p = p.replace(/^\/(en|es)/, "");
+      return p === "" ? "/index.html" : p;
+    }
+
+    const base = repoBase();
+    const page = relativePage();
+
+    host.querySelectorAll("[data-lang]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.getAttribute("data-lang");
+        location.href = base + "/" + lang + page;
+      });
+    });
+  }
+
   async function inject() {
     const headerHost = document.getElementById("siteHeader");
     const footerHost = document.getElementById("siteFooter");
@@ -86,6 +120,7 @@
     setActiveNav();
     initMobileMenu();
     setFooterYear();
+    initLangSwitcher();
   }
 
   window.addEventListener("DOMContentLoaded", inject);

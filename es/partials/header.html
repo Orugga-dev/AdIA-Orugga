@@ -27,56 +27,7 @@
       </button>
     </div>
   </div>
-
-  <script>
-(function(){
-  function getRepoBase(){
-    var host = location.hostname || '';
-    if (!/github\.io$/i.test(host)) return '';
-    var parts = location.pathname.split('/').filter(Boolean);
-    if (parts.length && parts[0] !== 'en' && parts[0] !== 'es') return '/' + parts[0];
-    return '';
-  }
-  function getRelativePage(){
-    var base = getRepoBase();
-    var p = location.pathname;
-    if (base && p.indexOf(base) === 0) p = p.slice(base.length);
-    p = p.replace(/^\/(en|es)/,'');
-    return p === '' ? '/index.html' : p;
-  }
-  function currentLang(){
-    var p = location.pathname.split('/').filter(Boolean);
-    // project site: [repo, lang, file] OR user site: [lang, file]
-    for (var i=0;i<p.length;i++){
-      if (p[i] === 'en' || p[i] === 'es') return p[i];
-    }
-    return 'en';
-  }
-  var base = getRepoBase();
-  var page = getRelativePage();
-  var lang = currentLang();
-  var root = document.getElementById('langSwitcher');
-  if (!root) return;
-
-  root.querySelectorAll('[data-lang]').forEach(function(btn){
-    var l = btn.getAttribute('data-lang');
-    if (l === lang) {
-      btn.classList.add('opacity-100');
-      btn.classList.remove('opacity-80');
-      btn.setAttribute('aria-current','true');
-    } else {
-      btn.classList.add('opacity-80');
-      btn.classList.remove('opacity-100');
-      btn.removeAttribute('aria-current');
-    }
-    btn.addEventListener('click', function(){
-      location.href = base + '/' + l + page;
-    });
-  });
-})();
-</script>
-
-  <!-- Mobile nav -->
+<!-- Mobile nav -->
   <div class="md:hidden hidden border-t border-white/5 bg-backgroundDark/95 backdrop-blur-md fixed inset-x-0 z-40 top-[72px]" id="mobileMenu">
     <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 text-sm">
       <a class="hover:text-white pb-1 border-b-2 border-transparent" data-nav="1" href="index.html">Por qué AdIA</a>
