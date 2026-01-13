@@ -33,25 +33,33 @@
 <body class="bg-backgroundDark text-slate-200 font-sans antialiased">
 
 <div id="siteHeader"></div>
-<div class="h-24"></div>
 
-<main class="flex-grow flex flex-col items-center py-20 px-6">
+<main class="relative flex min-h-screen w-full flex-col items-center justify-start pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+
   <div class="max-w-4xl w-full text-center mb-20">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">
+
+    <!-- Eyebrow (NEW) -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+      HOW IT WORKS
+    </div>
+
+    <!-- Title (unified typography; keeps white + primary + italic) -->
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
       Precision <span class="text-primary italic">at Scale.</span>
     </h1>
+
     <p class="text-lg md:text-xl text-slate-400 leading-relaxed">
       A high-performance workflow merging AI efficiency with professional production standards.
     </p>
   </div>
 
   <div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    
+
     <!-- 01 -->
     <div class="p-8 rounded-3xl bg-backgroundCard border border-white/5 flex flex-col h-full relative overflow-hidden group">
       <div class="absolute top-4 right-6 text-white/10 font-black text-4xl group-hover:text-primary/20 transition-colors">01</div>
       <span class="material-symbols-outlined text-primary mb-6 text-3xl">description</span>
-      
+
       <h3 class="text-xl font-bold text-white mb-4">Brief + Kick-off</h3>
       <p class="text-sm text-slate-400 mb-8 flex-grow">
         We align on objectives, brand constraints, channels, timelines, and approvals.
@@ -73,7 +81,7 @@
     <div class="p-8 rounded-3xl bg-backgroundCard border border-white/5 flex flex-col h-full relative overflow-hidden group">
       <div class="absolute top-4 right-6 text-white/10 font-black text-4xl group-hover:text-primary/20 transition-colors">02</div>
       <span class="material-symbols-outlined text-primary mb-6 text-3xl">psychology</span>
-      
+
       <h3 class="text-xl font-bold text-white mb-4">AI Creativity + Creative Team</h3>
       <p class="text-sm text-slate-400 mb-8 flex-grow">
         We develop 2–3 initial concepts using AI-assisted generation, reviewed and refined by experienced creatives.
@@ -101,7 +109,7 @@
     <div class="p-8 rounded-3xl bg-backgroundCard border border-white/5 flex flex-col h-full relative overflow-hidden group">
       <div class="absolute top-4 right-6 text-white/10 font-black text-4xl group-hover:text-primary/20 transition-colors">03</div>
       <span class="material-symbols-outlined text-primary mb-6 text-3xl">movie_filter</span>
-      
+
       <h3 class="text-xl font-bold text-white mb-4">Storyboard + Production</h3>
       <p class="text-sm text-slate-400 mb-8 flex-grow">
         Agile execution with controlled feedback loops to reach professional production standards.
@@ -129,7 +137,7 @@
     <div class="p-8 rounded-3xl bg-backgroundCard border border-white/5 flex flex-col h-full relative overflow-hidden group">
       <div class="absolute top-4 right-6 text-white/10 font-black text-4xl group-hover:text-primary/20 transition-colors">04</div>
       <span class="material-symbols-outlined text-primary mb-6 text-3xl">rocket_launch</span>
-      
+
       <h3 class="text-xl font-bold text-white mb-4">Final Multiplatform Delivery</h3>
       <p class="text-sm text-slate-400 mb-8 flex-grow">
         Production-ready assets, formatted and validated for activation across all required channels.
@@ -145,7 +153,7 @@
           <span>Organized delivery package</span>
         </li>
       </ul>
-      
+
       <p class="text-[10px] text-primary/80 font-medium italic mt-auto">
         Delivered at a significantly lower cost than traditional production.
       </p>
@@ -159,7 +167,7 @@
     <p class="text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
       A strategic partnership engineered to deliver premium creative production through AI-driven efficiency, <strong>significantly reducing traditional overhead</strong> while maintaining world-class standards.
     </p>
-    
+
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
       <!-- Orugga -->
       <div class="flex flex-col items-center">
@@ -184,6 +192,7 @@
       </div>
     </div>
   </div>
+
 </main>
 
 <div id="siteFooter"></div>
