@@ -1,9 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="dark">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=./en/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AdIA</title>
+  <meta http-equiv="refresh" content="0; url=/en/index.html" />
+  <script>
+    (function () {
+      try {
+        var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        var target = lang.startsWith('es') ? '/es/index.html' : '/en/index.html';
+        // Only redirect if we're at the site root
+        if (location.pathname === '/' || location.pathname === '/index.html') {
+          location.replace(target);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:#0B141A;color:#E2E8F0}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{max-width:520px;width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+    a{color:#4DA3FF;text-decoration:none;font-weight:600}
+    a:hover{text-decoration:underline}
+    .row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#E2E8F0}
+    .btn.primary{background:#4DA3FF;color:#0B141A;border-color:transparent}
+  </style>
 </head>
-<body></body>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 style="margin:0 0 6px;font-size:20px;">AdIA</h1>
+      <p style="margin:0;opacity:.85;line-height:1.4;">
+        Redirecting to the site… If you are not redirected, choose a language:
+      </p>
+      <div class="row">
+        <a class="btn primary" href="/en/index.html">English</a>
+        <a class="btn" href="/es/index.html">Español</a>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
