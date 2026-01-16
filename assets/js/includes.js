@@ -14,33 +14,36 @@
     partialHeader: "../partials/header.html",
     partialFooter: "../partials/footer.html",
     logo: "../assets/img/orugga_logo_white_transparent_wgreen.png",
+
+    // Keep it simple for now: language switch goes to the other language home.
+    // (If later you add /es/services.html or /es/about-us.html, we can map per-page)
     switchTo: isEN ? "../es/index.html" : "../en/index.html",
   };
 
   /**
-   * ROUTING RULES (IMPORTANT)
+   * ROUTING RULES
    *
    * - Home        → index.html
    * - Services    → services.html (ALWAYS, hero at top)
-   * - About       → anchor on index
-   * - Contact     → anchor on index
+   * - About us    → about-us.html (ALWAYS, hero at top)
+   * - Contact     → anchor on index (index#contact)
    */
-  function getRoutes(language, onIndex) {
+  function getRoutes(language) {
     if (language === "en") {
       return {
         home: "./index.html",
-        services: "./services.html",                 // ✅ ALWAYS PAGE
-        about: onIndex ? "#about" : "./index.html#about",
-        contact: onIndex ? "#contact" : "./index.html#contact",
+        services: "./services.html",      // ✅ ALWAYS PAGE
+        about: "./about-us.html",         // ✅ ALWAYS PAGE (FIX)
+        contact: "./index.html#contact",  // ✅ go to contact section on home
       };
     }
 
-    // Spanish (kept consistent)
+    // Spanish: keep consistent. If you don't have these pages in /es yet, adjust later.
     return {
       home: "./index.html",
       services: "./services.html",
-      about: onIndex ? "#about" : "./index.html#about",
-      contact: onIndex ? "#contacto" : "./index.html#contacto",
+      about: "./about-us.html",
+      contact: "./index.html#contacto",
     };
   }
 
@@ -97,11 +100,11 @@
     if (!headerHost || !footerHost) return;
 
     const [headerHTML, footerHTML] = await Promise.all([
-      fetch(P.partialHeader).then(r => {
+      fetch(P.partialHeader).then((r) => {
         if (!r.ok) throw new Error("Header partial not found");
         return r.text();
       }),
-      fetch(P.partialFooter).then(r => {
+      fetch(P.partialFooter).then((r) => {
         if (!r.ok) throw new Error("Footer partial not found");
         return r.text();
       }),
@@ -110,7 +113,7 @@
     headerHost.innerHTML = headerHTML;
     footerHost.innerHTML = footerHTML;
 
-    const routes = getRoutes(lang, isLangIndex);
+    const routes = getRoutes(lang);
 
     /* ================= HEADER ================= */
 
@@ -127,7 +130,7 @@
     if (navServices) navServices.href = routes.services;
 
     const navAbout = headerHost.querySelector('[data-nav="about"]');
-    if (navAbout) navAbout.href = routes.about;
+    if (navAbout) navAbout.href = routes.about; // ✅ now goes to about-us.html
 
     const navContact = headerHost.querySelector('[data-nav="contact"]');
     if (navContact) navContact.href = routes.contact;
@@ -147,10 +150,10 @@
     if (fHome) fHome.href = routes.home;
 
     const fServices = footerHost.querySelector('[data-foot="services"]');
-    if (fServices) fServices.href = routes.services;   // ✅ FIXED
+    if (fServices) fServices.href = routes.services;
 
     const fAbout = footerHost.querySelector('[data-foot="about"]');
-    if (fAbout) fAbout.href = routes.about;
+    if (fAbout) fAbout.href = routes.about; // ✅ now goes to about-us.html
 
     const fContact = footerHost.querySelector('[data-foot="contact"]');
     if (fContact) fContact.href = routes.contact;
@@ -161,7 +164,7 @@
     initMobileNav();
   }
 
-  injectPartials().catch(err => {
+  injectPartials().catch((err) => {
     console.error("Failed to inject partials:", err);
   });
 })();
