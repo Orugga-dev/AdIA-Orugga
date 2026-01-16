@@ -357,3 +357,29 @@ body{
 .header.is-scrolled .nav{
   gap: 16px;
 }
+/* ===============================
+   Trusted by – client chips
+   =============================== */
+
+.trusted-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+
+  transition: color 0.2s ease,
+              border-color 0.2s ease,
+              background 0.2s ease;
+}
+
+.trusted-chip:hover {
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+}
