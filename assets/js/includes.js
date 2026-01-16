@@ -1,14 +1,15 @@
 (() => {
   const path = location.pathname;
 
-  // Detect language based on URL folder: /en/... or /es/...
+  // Detect language based on URL folder
   const isEN = path.includes("/en/");
   const lang = isEN ? "en" : "es";
 
-  // Detect if we are on language index: /en/, /en/index.html, /es/, /es/index.html
+  // Detect if current page is language index
+  // /en/, /en/index.html, /es/, /es/index.html
   const isLangIndex = /\/(en|es)\/(?:index\.html)?$/.test(path);
 
-  // Relative paths (GitHub Pages-safe)
+  // Relative paths (GitHub Pages safe)
   const P = {
     partialHeader: "../partials/header.html",
     partialFooter: "../partials/footer.html",
@@ -16,38 +17,34 @@
     switchTo: isEN ? "../es/index.html" : "../en/index.html",
   };
 
+  /**
+   * ROUTING RULES (IMPORTANT)
+   *
+   * - Home        → index.html
+   * - Services    → services.html (ALWAYS, hero at top)
+   * - About       → anchor on index
+   * - Contact     → anchor on index
+   */
   function getRoutes(language, onIndex) {
     if (language === "en") {
       return {
         home: "./index.html",
-        services: onIndex ? "#services" : "./index.html#services",
+        services: "./services.html",                 // ✅ ALWAYS PAGE
         about: onIndex ? "#about" : "./index.html#about",
         contact: onIndex ? "#contact" : "./index.html#contact",
       };
     }
-    // Spanish kept functional; adjust anchors later if your ids differ.
+
+    // Spanish (kept consistent)
     return {
       home: "./index.html",
-      services: onIndex ? "#services" : "./index.html#services",
+      services: "./services.html",
       about: onIndex ? "#about" : "./index.html#about",
       contact: onIndex ? "#contacto" : "./index.html#contacto",
     };
   }
 
-  // Duplicates items for seamless loop (translateX(-50%))
-  function initClientsMarquee() {
-    const tracks = document.querySelectorAll("[data-clients-track]");
-    if (!tracks.length) return;
-
-    tracks.forEach((track) => {
-      if (track.dataset.duped === "1") return;
-      const kids = Array.from(track.children);
-      kids.forEach((node) => track.appendChild(node.cloneNode(true)));
-      track.dataset.duped = "1";
-    });
-  }
-
-  // Header shrink on scroll (requires CSS .header.is-scrolled ...)
+  // Header shrink on scroll
   function initHeaderShrink() {
     const header = document.querySelector(".header");
     if (!header) return;
@@ -67,7 +64,7 @@
     window.addEventListener("resize", apply, { passive: true });
   }
 
-  // Mobile menu toggle (robust: toggles 'hidden')
+  // Mobile nav toggle (robust, no CSS dependency)
   function initMobileNav() {
     const btn = document.querySelector("[data-mobile-toggle]");
     const panel = document.querySelector("[data-mobile-panel]");
@@ -84,8 +81,7 @@
     setOpen(false);
 
     btn.addEventListener("click", () => {
-      const willOpen = panel.classList.contains("hidden");
-      setOpen(willOpen);
+      setOpen(panel.classList.contains("hidden"));
     });
 
     panel.addEventListener("click", (e) => {
@@ -101,12 +97,12 @@
     if (!headerHost || !footerHost) return;
 
     const [headerHTML, footerHTML] = await Promise.all([
-      fetch(P.partialHeader).then((r) => {
-        if (!r.ok) throw new Error(`Header partial not found: ${P.partialHeader}`);
+      fetch(P.partialHeader).then(r => {
+        if (!r.ok) throw new Error("Header partial not found");
         return r.text();
       }),
-      fetch(P.partialFooter).then((r) => {
-        if (!r.ok) throw new Error(`Footer partial not found: ${P.partialFooter}`);
+      fetch(P.partialFooter).then(r => {
+        if (!r.ok) throw new Error("Footer partial not found");
         return r.text();
       }),
     ]);
@@ -114,59 +110,58 @@
     headerHost.innerHTML = headerHTML;
     footerHost.innerHTML = footerHTML;
 
-    const r = getRoutes(lang, isLangIndex);
+    const routes = getRoutes(lang, isLangIndex);
 
-    // Logo
+    /* ================= HEADER ================= */
+
     const logo = headerHost.querySelector("[data-logo]");
     if (logo) logo.src = P.logo;
 
-    // Brand home
-    const home = headerHost.querySelector("[data-home]");
-    if (home) home.href = r.home;
+    const homeLink = headerHost.querySelector("[data-home]");
+    if (homeLink) homeLink.href = routes.home;
 
-    // Header nav
     const navHome = headerHost.querySelector('[data-nav="home"]');
-    if (navHome) navHome.href = r.home;
+    if (navHome) navHome.href = routes.home;
 
     const navServices = headerHost.querySelector('[data-nav="services"]');
-    if (navServices) navServices.href = r.services;
+    if (navServices) navServices.href = routes.services;
 
     const navAbout = headerHost.querySelector('[data-nav="about"]');
-    if (navAbout) navAbout.href = r.about;
+    if (navAbout) navAbout.href = routes.about;
 
     const navContact = headerHost.querySelector('[data-nav="contact"]');
-    if (navContact) navContact.href = r.contact;
+    if (navContact) navContact.href = routes.contact;
 
-    // CTA
     const cta = headerHost.querySelector("[data-cta]");
-    if (cta) cta.href = r.contact;
+    if (cta) cta.href = routes.contact;
 
-    // Footer links
-    const fHome = footerHost.querySelector('[data-foot="home"]');
-    if (fHome) fHome.href = r.home;
-
-    const fServices = footerHost.querySelector('[data-foot="services"]');
-    if (fServices) fServices.href = r.services;
-
-    const fAbout = footerHost.querySelector('[data-foot="about"]');
-    if (fAbout) fAbout.href = r.about;
-
-    const fContact = footerHost.querySelector('[data-foot="contact"]');
-    if (fContact) fContact.href = r.contact;
-
-    // Language switch
     const langSwitch = headerHost.querySelector("[data-lang-switch]");
     if (langSwitch) {
       langSwitch.href = P.switchTo;
       langSwitch.textContent = lang === "en" ? "ES" : "EN";
     }
 
-    initClientsMarquee();
+    /* ================= FOOTER ================= */
+
+    const fHome = footerHost.querySelector('[data-foot="home"]');
+    if (fHome) fHome.href = routes.home;
+
+    const fServices = footerHost.querySelector('[data-foot="services"]');
+    if (fServices) fServices.href = routes.services;   // ✅ FIXED
+
+    const fAbout = footerHost.querySelector('[data-foot="about"]');
+    if (fAbout) fAbout.href = routes.about;
+
+    const fContact = footerHost.querySelector('[data-foot="contact"]');
+    if (fContact) fContact.href = routes.contact;
+
+    /* ================= INIT ================= */
+
     initHeaderShrink();
     initMobileNav();
   }
 
-  injectPartials().catch((err) => {
+  injectPartials().catch(err => {
     console.error("Failed to inject partials:", err);
   });
 })();
