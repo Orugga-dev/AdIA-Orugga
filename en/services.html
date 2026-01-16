@@ -1,52 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services — Orugga</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orugga — Services</title>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="../assets/styles.css" />
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
+          },
+        },
+      },
+    }
+  </script>
 
-  <!-- Scripts -->
-  <script src="../assets/includes.js" defer></script>
-  <script src="../assets/site.js" defer></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Your site CSS -->
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <style>
+    :root { color-scheme: dark; }
+
+    body{
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(16, 185, 129, 0.12), transparent 55%),
+        radial-gradient(900px 450px at 85% 20%, rgba(56, 189, 248, 0.10), transparent 55%),
+        #05070f;
+    }
+
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+    }
+  </style>
 </head>
 
-<body class="bg-black text-white antialiased">
+<body class="font-sans text-slate-100">
+  <div class="noise"></div>
 
   <!-- HEADER (loaded via includes.js) -->
   <div id="siteHeader"></div>
 
-  <main class="pt-24">
-
-    <!-- HERO -->
-    <section class="relative overflow-hidden">
-      <div class="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-12 md:pb-16">
-        <p class="text-xs uppercase tracking-[0.22em] text-slate-400">
+  <main>
+    <section class="relative pt-32 pb-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">
           Services
         </p>
 
-        <h1 class="mt-4 text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-          Capabilities built for delivery.
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl">
+          What we actually build — and how we deliver it.
         </h1>
 
-        <p class="mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-slate-300">
-          Product engineering, platforms, and AI workflows—designed for reliability,
-          maintainability, and measurable outcomes.
+        <p class="mt-6 max-w-3xl text-lg text-slate-300">
+          From AI-driven systems to core platforms and interfaces, these are the capabilities we own end-to-end — built and shipped in real production environments.
         </p>
 
-        <div class="mt-8 flex flex-wrap items-center gap-4">
+        <div class="mt-8 flex gap-4">
           <a
-            href="../index.html#contact"
-            class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-slate-100 transition"
+            href="./index.html#contact"
+            class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition"
           >
             Contact us
           </a>
 
           <a
             href="#capabilities"
-            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
+            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
           >
             Explore capabilities →
           </a>
@@ -54,164 +83,135 @@
       </div>
     </section>
 
-    <!-- CAPABILITIES -->
-    <section id="capabilities" class="mx-auto max-w-7xl px-6 pb-24">
+    <section id="capabilities" class="mx-auto max-w-7xl px-6 pb-20">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
         Built for real-world constraints.
       </h2>
       <p class="mt-3 text-slate-300 max-w-3xl">
-        These are the capabilities we optimize for when shipping software in complex,
-        real-world environments.
+        These are the capabilities we optimize for when shipping software in complex, real-world environments.
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-2">
         <div class="rounded-2xl border border-white/10 bg-white/5 p-8">
-          <p class="text-xs uppercase tracking-wider text-slate-400">
-            AI-driven
-          </p>
-          <h3 class="mt-2 text-lg font-semibold text-white">
-            AI Solutions
-          </h3>
-          <p class="mt-3 text-slate-300">
-            We design and build AI-driven systems focused on automation,
-            decision support, and measurable productivity gains in real
-            operational contexts.
+          <p class="text-xs uppercase tracking-wider text-slate-500">AI-driven</p>
+          <p class="mt-3 text-lg font-semibold text-white">AI Solutions</p>
+          <p class="mt-3 text-slate-300 leading-relaxed">
+            We design and build AI-driven systems focused on automation, decision support, and measurable productivity gains in real operational contexts.
           </p>
         </div>
 
         <div class="rounded-2xl border border-white/10 bg-white/5 p-8">
-          <p class="text-xs uppercase tracking-wider text-slate-400">
-            Delivery
-          </p>
-          <h3 class="mt-2 text-lg font-semibold text-white">
-            Software Development
-          </h3>
-          <p class="mt-3 text-slate-300">
-            We build robust, scalable software with clear ownership of
-            delivery. From architecture to production.
+          <p class="text-xs uppercase tracking-wider text-slate-500">Delivery</p>
+          <p class="mt-3 text-lg font-semibold text-white">Software Development</p>
+          <p class="mt-3 text-slate-300 leading-relaxed">
+            We build robust, scalable software with clear ownership of delivery. From architecture to production.
           </p>
         </div>
 
         <div class="rounded-2xl border border-white/10 bg-white/5 p-8">
-          <p class="text-xs uppercase tracking-wider text-slate-400">
-            Product
-          </p>
-          <h3 class="mt-2 text-lg font-semibold text-white">
-            Interface Design
-          </h3>
-          <p class="mt-3 text-slate-300">
-            We design interfaces that prioritize clarity, usability,
-            and adoption. Aligned with real business and technical constraints.
+          <p class="text-xs uppercase tracking-wider text-slate-500">Product</p>
+          <p class="mt-3 text-lg font-semibold text-white">Interface Design</p>
+          <p class="mt-3 text-slate-300 leading-relaxed">
+            We design interfaces that prioritize clarity, usability, and adoption. Aligned with real business and technical constraints.
           </p>
         </div>
 
         <div class="rounded-2xl border border-white/10 bg-white/5 p-8">
-          <p class="text-xs uppercase tracking-wider text-slate-400">
-            Direction
-          </p>
-          <h3 class="mt-2 text-lg font-semibold text-white">
-            Consulting & Strategy
-          </h3>
-          <p class="mt-3 text-slate-300">
-            We help define strategy, scope, and delivery roadmaps that are
-            realistic, executable, and aligned with your technical reality.
+          <p class="text-xs uppercase tracking-wider text-slate-500">Direction</p>
+          <p class="mt-3 text-lg font-semibold text-white">Consulting &amp; Strategy</p>
+          <p class="mt-3 text-slate-300 leading-relaxed">
+            We help define strategy, scope, and delivery roadmaps that are realistic, executable, and aligned with your technical reality.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- TECHNOLOGY STACK -->
     <section class="mx-auto max-w-7xl px-6 pb-24">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
-        Technology choices, driven by real-world delivery.
-      </h2>
-      <p class="mt-3 text-slate-300 max-w-3xl">
-        We choose technologies based on reliability, maintainability, and
-        long-term viability. Not trends.
+  <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
+    Technology choices, driven by real-world delivery.
+  </h2>
+  <p class="mt-3 text-slate-300 max-w-3xl">
+    We choose technologies based on reliability, maintainability, and long-term viability. Not trends.
+  </p>
+
+  <!-- Technology cards -->
+  <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">Mobile</p>
+      <p class="mt-2 text-slate-300">
+        Android · iOS · Flutter · React Native
       </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Native and cross-platform mobile solutions built for performance, stability, and long-term support.
+      </p>
+    </div>
 
-      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">Mobile</p>
-          <p class="mt-2 text-slate-300">
-            Android · iOS · Flutter · React Native
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Native and cross-platform mobile solutions built for performance,
-            stability, and long-term support.
-          </p>
-        </div>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">Backend</p>
+      <p class="mt-2 text-slate-300">
+        Java · JVM ecosystem
+      </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Backend systems designed for scalability, reliability, and operational clarity.
+      </p>
+    </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">Backend</p>
-          <p class="mt-2 text-slate-300">
-            Java · JVM ecosystem
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Backend systems designed for scalability, reliability,
-            and operational clarity.
-          </p>
-        </div>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">Databases</p>
+      <p class="mt-2 text-slate-300">
+        PostgreSQL · MySQL · Oracle · SQL Server
+      </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Relational databases chosen and tuned for consistency, performance, and data integrity.
+      </p>
+    </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">Databases</p>
-          <p class="mt-2 text-slate-300">
-            PostgreSQL · MySQL · Oracle · SQL Server
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Relational databases chosen and tuned for consistency,
-            performance, and data integrity.
-          </p>
-        </div>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">APIs &amp; Integrations</p>
+      <p class="mt-2 text-slate-300">
+        REST APIs · System integrations
+      </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Well-defined interfaces designed for stability, evolution, and external dependencies.
+      </p>
+    </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">APIs & Integrations</p>
-          <p class="mt-2 text-slate-300">
-            REST APIs · System integrations
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Well-defined interfaces designed for stability, evolution,
-            and external dependencies.
-          </p>
-        </div>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">Web standards</p>
+      <p class="mt-2 text-slate-300">
+        Modern web standards
+      </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Clean, accessible, and maintainable frontends built on proven web technologies.
+      </p>
+    </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">Web standards</p>
-          <p class="mt-2 text-slate-300">
-            Modern web standards
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Clean, accessible, and maintainable frontends built on
-            proven web technologies.
-          </p>
-        </div>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <p class="text-sm font-semibold text-white">Legacy / platforms</p>
+      <p class="mt-2 text-slate-300">
+        Legacy &amp; specialized platforms
+      </p>
+      <p class="mt-3 text-sm text-slate-400">
+        Maintaining, modernizing, and integrating systems in constrained or legacy environments.
+      </p>
+    </div>
+  </div>
+</section>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm font-semibold text-white">Legacy / platforms</p>
-          <p class="mt-2 text-slate-300">
-            Legacy & specialized platforms
-          </p>
-          <p class="mt-3 text-sm text-slate-400">
-            Maintaining, modernizing, and integrating systems in
-            constrained or legacy environments.
-          </p>
-        </div>
-      </div>
 
       <div class="mt-10">
-        <a
-          href="../index.html#contact"
-          class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
-        >
+        <a href="../index.html#contact"
+           class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition">
           Talk to us →
         </a>
       </div>
     </section>
-
   </main>
 
   <!-- FOOTER (loaded via includes.js) -->
   <div id="siteFooter"></div>
 
+  <!-- Includes -->
+  <script src="../assets/js/includes.js"></script>
 </body>
 </html>
