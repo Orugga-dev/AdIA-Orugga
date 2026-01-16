@@ -13,17 +13,18 @@
     logo: "../assets/img/orugga_logo_white_transparent_wgreen.png",
     switchTo: isEN ? "../es/index.html" : "../en/index.html",
     routes: {
-      en: {
-        home: "./index.html",
-        services: "./index.html#services",
-        contact: "./index.html#contact",
-      },
-      es: {
-        home: "./index.html",
-        services: "./index.html#services",
-        contact: "./index.html#contacto",
-      },
-    },
+  en: {
+    home: "./index.html",
+    services: "./services.html",
+    contact: "./index.html#contact",
+  },
+  es: {
+    home: "./index.html",
+    services: "./services.html",
+    contact: "./index.html#contacto",
+  },
+},
+
   };
 
   // Duplicates items for seamless loop (translateX(-50%))
