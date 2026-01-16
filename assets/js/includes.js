@@ -5,27 +5,34 @@
   const isEN = path.includes("/en/");
   const lang = isEN ? "en" : "es";
 
-  // Use RELATIVE paths to avoid GitHub Pages base-path issues.
-  // Pages live under /en and /es, while assets + partials live one level up.
+  // Detect if we are on language index: /en/, /en/index.html, /es/, /es/index.html
+  const isLangIndex = /\/(en|es)\/(?:index\.html)?$/.test(path);
+
+  // Relative paths (GitHub Pages-safe)
   const P = {
     partialHeader: "../partials/header.html",
     partialFooter: "../partials/footer.html",
     logo: "../assets/img/orugga_logo_white_transparent_wgreen.png",
     switchTo: isEN ? "../es/index.html" : "../en/index.html",
-    routes: {
-  en: {
-    home: "./index.html",
-    services: "./services.html",
-    contact: "./index.html#contact",
-  },
-  es: {
-    home: "./index.html",
-    services: "./services.html",
-    contact: "./index.html#contacto",
-  },
-},
-
   };
+
+  function getRoutes(language, onIndex) {
+    if (language === "en") {
+      return {
+        home: "./index.html",
+        services: onIndex ? "#services" : "./index.html#services",
+        about: onIndex ? "#about" : "./index.html#about",
+        contact: onIndex ? "#contact" : "./index.html#contact",
+      };
+    }
+    // Spanish kept functional; adjust anchors later if your ids differ.
+    return {
+      home: "./index.html",
+      services: onIndex ? "#services" : "./index.html#services",
+      about: onIndex ? "#about" : "./index.html#about",
+      contact: onIndex ? "#contacto" : "./index.html#contacto",
+    };
+  }
 
   // Duplicates items for seamless loop (translateX(-50%))
   function initClientsMarquee() {
@@ -51,7 +58,6 @@
       const y = window.scrollY || document.documentElement.scrollTop || 0;
       header.classList.toggle("is-scrolled", y > THRESHOLD);
 
-      // Keep a reliable CSS var for layouts that depend on header height
       const h = header.getBoundingClientRect().height;
       document.documentElement.style.setProperty("--header-h", `${Math.round(h)}px`);
     };
@@ -61,27 +67,31 @@
     window.addEventListener("resize", apply, { passive: true });
   }
 
-  // Mobile menu toggle (if your header partial provides these data-attrs)
+  // Mobile menu toggle (robust: toggles 'hidden')
   function initMobileNav() {
-    const btn = document.querySelector('[data-mobile-toggle]');
-    const panel = document.querySelector('[data-mobile-panel]');
+    const btn = document.querySelector("[data-mobile-toggle]");
+    const panel = document.querySelector("[data-mobile-panel]");
     if (!btn || !panel) return;
 
-    // avoid double-binding if navigating/rehydrating
     if (btn.dataset.bound === "1") return;
     btn.dataset.bound = "1";
 
-    btn.addEventListener("click", () => {
-      const open = panel.classList.toggle("open");
+    const setOpen = (open) => {
+      panel.classList.toggle("hidden", !open);
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    setOpen(false);
+
+    btn.addEventListener("click", () => {
+      const willOpen = panel.classList.contains("hidden");
+      setOpen(willOpen);
     });
 
-    // close menu when clicking a link inside
     panel.addEventListener("click", (e) => {
       const a = e.target.closest("a");
       if (!a) return;
-      panel.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
+      setOpen(false);
     });
   }
 
@@ -90,7 +100,6 @@
     const footerHost = document.getElementById("siteFooter");
     if (!headerHost || !footerHost) return;
 
-    // Fetch partials (relative paths to avoid base-path 404s)
     const [headerHTML, footerHTML] = await Promise.all([
       fetch(P.partialHeader).then((r) => {
         if (!r.ok) throw new Error(`Header partial not found: ${P.partialHeader}`);
@@ -105,22 +114,25 @@
     headerHost.innerHTML = headerHTML;
     footerHost.innerHTML = footerHTML;
 
-    const r = P.routes[lang];
+    const r = getRoutes(lang, isLangIndex);
 
-    // Set logo (transparent png)
+    // Logo
     const logo = headerHost.querySelector("[data-logo]");
     if (logo) logo.src = P.logo;
 
-    // Home link on brand
+    // Brand home
     const home = headerHost.querySelector("[data-home]");
     if (home) home.href = r.home;
 
-    // Nav links
+    // Header nav
     const navHome = headerHost.querySelector('[data-nav="home"]');
     if (navHome) navHome.href = r.home;
 
     const navServices = headerHost.querySelector('[data-nav="services"]');
     if (navServices) navServices.href = r.services;
+
+    const navAbout = headerHost.querySelector('[data-nav="about"]');
+    if (navAbout) navAbout.href = r.about;
 
     const navContact = headerHost.querySelector('[data-nav="contact"]');
     if (navContact) navContact.href = r.contact;
@@ -136,6 +148,9 @@
     const fServices = footerHost.querySelector('[data-foot="services"]');
     if (fServices) fServices.href = r.services;
 
+    const fAbout = footerHost.querySelector('[data-foot="about"]');
+    if (fAbout) fAbout.href = r.about;
+
     const fContact = footerHost.querySelector('[data-foot="contact"]');
     if (fContact) fContact.href = r.contact;
 
@@ -146,13 +161,11 @@
       langSwitch.textContent = lang === "en" ? "ES" : "EN";
     }
 
-    // Init behaviors AFTER DOM injection
     initClientsMarquee();
     initHeaderShrink();
     initMobileNav();
   }
 
-  // Keep failures visible in console (helps debugging on Pages)
   injectPartials().catch((err) => {
     console.error("Failed to inject partials:", err);
   });
