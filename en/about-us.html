@@ -254,43 +254,48 @@
   <div id="siteHeader"></div>
 
   <main>
-    <!-- HERO -->
-    <section class="relative pt-32 pb-20 overflow-hidden">
-      <canvas id="heroParticles" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+   <!-- HERO -->
+<section class="relative overflow-hidden pt-32 pb-20 hero--animated hero--subtle">
+  <!-- particles canvas (needs hero-particles class for proper sizing/opacity) -->
+  <canvas id="heroParticles" class="hero-particles"></canvas>
 
-      <div class="relative mx-auto max-w-7xl px-6">
-        <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">
-          About us
-        </p>
+  <!-- subtle overlay for readability (same family as other pages) -->
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/70"></div>
 
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl">
-          Creating software solutions since 2005.
-        </h1>
+  <div class="relative mx-auto max-w-7xl px-6">
+    <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">
+      About us
+    </p>
 
-        <p class="mt-6 max-w-3xl text-lg text-slate-300">
-          We provide consulting and software development services for web applications, mobile solutions,
-          wearables, middleware, backends, SDKs, and more.
-        </p>
+    <!-- Match Services sizing: slightly tighter than your current md:text-6xl -->
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-4xl">
+      Creating software solutions since 2005.
+    </h1>
 
-        <div class="mt-8 flex gap-4">
-          <a
-            href="./index.html#contact"
-            class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition"
-          >
-            Contact us
-          </a>
+    <p class="mt-6 max-w-3xl text-lg text-slate-300">
+      We provide consulting and software development services for web applications, mobile solutions,
+      wearables, middleware, backends, SDKs, and more.
+    </p>
 
-          <a
-            href="#who-we-are"
-            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
-          >
-            Explore →
-          </a>
-        </div>
-      </div>
-    </section>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href="./index.html#contact"
+        class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition"
+      >
+        Contact us
+      </a>
 
-    <!-- WHO WE ARE (graphic rail + dots, no cards) -->
+      <a
+        href="#who-we-are"
+        class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
+      >
+        Explore →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE (editorial rail, no dots) -->
 <section id="who-we-are" class="mx-auto max-w-7xl px-6 pb-24">
   <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
 
@@ -307,8 +312,7 @@
 
     <div class="lg:col-span-7">
       <div class="who-rail">
-
-        <article class="who-item who-hover group">
+        <article class="who-item who-hover">
           <p class="who-title">Since</p>
           <p class="who-year">2005</p>
           <p class="who-desc">
@@ -316,19 +320,19 @@
           </p>
         </article>
 
-        <article class="who-item who-hover group">
+        <article class="who-item who-hover">
           <p class="who-title">Since</p>
           <p class="who-year">2011</p>
           <p class="who-desc">
             Accelerating startups with a pragmatic, execution-driven approach.
           </p>
         </article>
-
       </div>
     </div>
 
   </div>
 </section>
+
 
 
     <!-- RECOGNITIONS -->
