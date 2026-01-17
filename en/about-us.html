@@ -36,6 +36,84 @@
         radial-gradient(900px 450px at 85% 20%, rgba(56,189,248,.10), transparent 55%),
         #05070f;
     }
+
+    /* --- Recognitions micro-interactions (subtle, enterprise) --- */
+    .tl-item {
+      position: relative;
+      transition: transform 220ms ease, filter 220ms ease;
+    }
+
+    /* subtle “lift” */
+    .tl-item:hover,
+    .tl-item:focus-within {
+      transform: translateY(-2px);
+    }
+
+    /* glow overlay (only on hover/focus) */
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      inset: -14px -18px;
+      border-radius: 18px;
+      background:
+        radial-gradient(520px 180px at 30% 20%, rgba(255,255,255,.08), transparent 60%),
+        radial-gradient(520px 220px at 10% 30%, rgba(16,185,129,.10), transparent 62%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .tl-item:hover::before,
+    .tl-item:focus-within::before { opacity: 1; }
+
+    /* keep content above overlay */
+    .tl-content { position: relative; z-index: 1; }
+
+    /* timeline line opacity changes slightly on hover */
+    .tl-line { transition: opacity 220ms ease; opacity: .55; }
+    .tl-wrap:hover .tl-line { opacity: .75; }
+
+    /* dots */
+    .tl-dot-outer {
+      transition: border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+    }
+    .tl-dot-inner {
+      transition: transform 220ms ease, background-color 220ms ease, opacity 220ms ease;
+      opacity: .95;
+    }
+
+    /* dot accent on hover/focus */
+    .tl-item:hover .tl-dot-outer,
+    .tl-item:focus-within .tl-dot-outer {
+      border-color: rgba(255,255,255,.20);
+      box-shadow:
+        0 0 0 6px rgba(16,185,129,.06),
+        0 0 36px rgba(16,185,129,.10);
+    }
+
+    .tl-item:hover .tl-dot-inner,
+    .tl-item:focus-within .tl-dot-inner {
+      background-color: rgba(16,185,129,1);
+      transform: scale(1.05);
+    }
+
+    /* gentle pulse on hover (reduced-motion safe) */
+    @media (prefers-reduced-motion: no-preference) {
+      .tl-item:hover .tl-dot-inner,
+      .tl-item:focus-within .tl-dot-inner {
+        animation: tlPulse 1.25s ease-in-out infinite;
+      }
+      @keyframes tlPulse {
+        0%, 100% { transform: scale(1.02); }
+        50% { transform: scale(1.18); }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tl-item, .tl-item::before, .tl-dot-outer, .tl-dot-inner, .tl-line {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -45,13 +123,9 @@
   <div id="siteHeader"></div>
 
   <main>
-    <!-- HERO — SAME SYSTEM AS SERVICES -->
+    <!-- HERO -->
     <section class="relative pt-32 pb-20 overflow-hidden">
-      <!-- animated background -->
-      <canvas
-        id="heroParticles"
-        class="absolute inset-0 w-full h-full pointer-events-none"
-      ></canvas>
+      <canvas id="heroParticles" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
 
       <div class="relative mx-auto max-w-7xl px-6">
         <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">
@@ -59,11 +133,12 @@
         </p>
 
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl">
-          Building software solutions since 2005.
+          Creating software solutions since 2005.
         </h1>
 
         <p class="mt-6 max-w-3xl text-lg text-slate-300">
-          We help companies design, build, and run software that performs in real-world production environments.
+          We provide consulting and software development services for web applications, mobile solutions,
+          wearables, middleware, backends, SDKs, and more.
         </p>
 
         <div class="mt-8 flex gap-4">
@@ -98,15 +173,15 @@
       <div class="mt-10 grid gap-6 md:grid-cols-2">
         <div class="rounded-2xl border border-white/10 bg-white/5 p-9 md:p-10">
           <p class="text-xs uppercase tracking-wider text-slate-500">Since</p>
-          <p class="mt-3 text-lg font-semibold text-white">2005</p>
+          <p class="mt-3 text-xl font-semibold text-white">2005</p>
           <p class="mt-3 text-slate-300">
-            Building and shipping software across web, mobile, platforms, and complex integrations.
+            Building and shipping software across web, mobile, platforms, and integrations.
           </p>
         </div>
 
-       <div class="rounded-2xl border border-white/10 bg-white/5 p-9 md:p-10">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-9 md:p-10">
           <p class="text-xs uppercase tracking-wider text-slate-500">Startups</p>
-          <p class="mt-3 text-lg font-semibold text-white">Since 2011</p>
+          <p class="mt-3 text-xl font-semibold text-white">Since 2011</p>
           <p class="mt-3 text-slate-300">
             Accelerating startups with a pragmatic, execution-driven approach.
           </p>
@@ -114,85 +189,87 @@
       </div>
     </section>
 
-    <!-- RECOGNITIONS -->
- <section class="mx-auto max-w-7xl px-6 pb-24">
-  <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
-    Recognitions
-  </h2>
+    <!-- RECOGNITIONS (timeline + hover micro-interactions) -->
+    <section class="mx-auto max-w-7xl px-6 pb-24">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
+        Recognitions
+      </h2>
 
-  <p class="mt-3 max-w-3xl text-slate-300">
-    Proof points that came from shipping real products to real users.
-  </p>
+      <p class="mt-3 max-w-3xl text-slate-300">
+        Proof points that came from shipping real products to real users.
+      </p>
 
-  <!-- Timeline -->
-  <div class="mt-16 relative">
-    <!-- vertical line -->
-    <div class="absolute left-4 top-0 bottom-0 w-px bg-white/10"></div>
+      <div class="tl-wrap mt-16 relative">
+        <!-- vertical line -->
+        <div class="tl-line absolute left-4 top-0 bottom-0 w-px bg-white/10"></div>
 
-    <!-- Item 2009 -->
-    <div class="relative pl-20 pb-16">
-      <!-- dot -->
-      <div class="absolute left-0 top-1.5 flex items-center justify-center">
-        <div class="h-8 w-8 rounded-full border border-white/15 bg-black/60 backdrop-blur">
-          <div class="h-2 w-2 rounded-full bg-white mx-auto mt-3"></div>
-        </div>
+        <!-- 2009 -->
+        <article class="tl-item relative pl-20 pb-16">
+          <div class="absolute left-0 top-1.5 flex items-center justify-center">
+            <div class="tl-dot-outer h-10 w-10 rounded-full border border-white/15 bg-black/60 backdrop-blur flex items-center justify-center">
+              <div class="tl-dot-inner h-2.5 w-2.5 rounded-full bg-white"></div>
+            </div>
+          </div>
+
+          <div class="tl-content">
+            <p class="text-sm font-semibold text-white">2009</p>
+            <h3 class="mt-2 text-xl font-semibold text-white">
+              Nokia Calling All Innovators
+            </h3>
+            <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
+              1st place Américas on “Eco Challenge” and 2nd place worldwide.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2012 -->
+        <article class="tl-item relative pl-20 pb-16">
+          <div class="absolute left-0 top-1.5 flex items-center justify-center">
+            <div class="tl-dot-outer h-10 w-10 rounded-full border border-white/15 bg-black/60 backdrop-blur flex items-center justify-center">
+              <div class="tl-dot-inner h-2.5 w-2.5 rounded-full bg-white"></div>
+            </div>
+          </div>
+
+          <div class="tl-content">
+            <p class="text-sm font-semibold text-white">2012</p>
+            <h3 class="mt-2 text-xl font-semibold text-white">
+              BlackBerry Achievement Awards
+            </h3>
+            <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
+              3rd place worldwide for “Best Mobile App” with Cines Hoyts Social Ticketing.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2013 -->
+        <article class="tl-item relative pl-20">
+          <div class="absolute left-0 top-1.5 flex items-center justify-center">
+            <div class="tl-dot-outer h-10 w-10 rounded-full border border-white/15 bg-black/60 backdrop-blur flex items-center justify-center">
+              <div class="tl-dot-inner h-2.5 w-2.5 rounded-full bg-white"></div>
+            </div>
+          </div>
+
+          <div class="tl-content">
+            <p class="text-sm font-semibold text-white">2013</p>
+            <h3 class="mt-2 text-xl font-semibold text-white">
+              Microsoft premium partner
+            </h3>
+            <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
+              Selected as one of the 10 key development partners in LatAm.
+            </p>
+          </div>
+        </article>
       </div>
 
-      <p class="text-sm font-semibold text-white">2009</p>
-      <h3 class="mt-2 text-xl font-semibold text-white">
-        Nokia Calling All Innovators
-      </h3>
-      <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
-        1st place Américas on “Eco Challenge” and 2nd place worldwide.
-      </p>
-    </div>
-
-    <!-- Item 2012 -->
-    <div class="relative pl-20 pb-16">
-      <div class="absolute left-0 top-1.5 flex items-center justify-center">
-        <div class="h-8 w-8 rounded-full border border-white/15 bg-black/60 backdrop-blur">
-          <div class="h-2 w-2 rounded-full bg-white mx-auto mt-3"></div>
-        </div>
+      <div class="mt-16">
+        <a
+          href="./index.html#contact"
+          class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
+        >
+          Talk to us →
+        </a>
       </div>
-
-      <p class="text-sm font-semibold text-white">2012</p>
-      <h3 class="mt-2 text-xl font-semibold text-white">
-        BlackBerry Achievement Awards
-      </h3>
-      <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
-        3rd place worldwide for “Best Mobile App” with Cines Hoyts Social Ticketing.
-      </p>
-    </div>
-
-    <!-- Item 2013 -->
-    <div class="relative pl-20">
-      <div class="absolute left-0 top-1.5 flex items-center justify-center">
-        <div class="h-8 w-8 rounded-full border border-white/15 bg-black/60 backdrop-blur">
-          <div class="h-2 w-2 rounded-full bg-white mx-auto mt-3"></div>
-        </div>
-      </div>
-
-      <p class="text-sm font-semibold text-white">2013</p>
-      <h3 class="mt-2 text-xl font-semibold text-white">
-        Microsoft premium partner
-      </h3>
-      <p class="mt-2 max-w-2xl text-slate-300 leading-relaxed">
-        Selected as one of the 10 key development partners in LatAm.
-      </p>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="mt-16">
-    <a
-      href="./index.html#contact"
-      class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
-    >
-      Talk to us →
-    </a>
-  </div>
-</section>
-
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -201,45 +278,70 @@
   <!-- Includes -->
   <script src="../assets/js/includes.js"></script>
 
-  <!-- HERO BACKGROUND — SAME AS SERVICES -->
+  <!-- HERO BACKGROUND (same particle system you already had) -->
   <script>
-    // identical particle system used in services
     (function () {
       const canvas = document.getElementById("heroParticles");
       if (!canvas) return;
 
       const ctx = canvas.getContext("2d");
-      let w, h, particles;
+      if (!ctx) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) return;
+
+      let w = 0, h = 0, dpr = 1;
+      let particles = [];
+      let raf = 0;
+
+      const CFG = { n: 70, speed: 0.18 };
 
       function resize() {
-        w = canvas.width = canvas.offsetWidth;
-        h = canvas.height = canvas.offsetHeight;
-        particles = Array.from({ length: 60 }, () => ({
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.max(1, canvas.offsetWidth);
+        h = Math.max(1, canvas.offsetHeight);
+
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        particles = Array.from({ length: CFG.n }, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: (Math.random() - 0.5) * 0.2
+          vx: (Math.random() - 0.5) * CFG.speed,
+          vy: (Math.random() - 0.5) * CFG.speed
         }));
       }
 
-      function draw() {
+      function step() {
         ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
           p.x += p.vx;
           p.y += p.vy;
-          if (p.x < 0 || p.x > w) p.vx *= -1;
-          if (p.y < 0 || p.y > h) p.vy *= -1;
-          ctx.fillStyle = "rgba(255,255,255,0.25)";
+
+          if (p.x < -20) p.x = w + 20;
+          if (p.x > w + 20) p.x = -20;
+          if (p.y < -20) p.y = h + 20;
+          if (p.y > h + 20) p.y = -20;
+
+          ctx.fillStyle = "rgba(255,255,255,0.22)";
           ctx.fillRect(p.x, p.y, 1.5, 1.5);
-        });
-        requestAnimationFrame(draw);
+        }
+
+        raf = requestAnimationFrame(step);
       }
 
       resize();
-      window.addEventListener("resize", resize);
-      draw();
+      window.addEventListener("resize", resize, { passive: true });
+      raf = requestAnimationFrame(step);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else raf = requestAnimationFrame(step);
+      });
     })();
   </script>
-
 </body>
 </html>
